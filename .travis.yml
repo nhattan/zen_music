@@ -1,0 +1,10 @@
+language: ruby
+sudo: required
+cache:
+  bundler: true
+rvm:
+  - 2.3.1
+before_script:
+  - mysql -e "create database zen_music_test"
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
