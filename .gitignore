@@ -16,9 +16,10 @@
 !/log/.keep
 /tmp
 .env*
-!.env
+!.env.example
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+.byebug_history
