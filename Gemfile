@@ -32,6 +32,7 @@ gem 'capistrano-rvm'
 gem 'capistrano-passenger'
 
 gem 'newrelic_rpm'
+gem 'adminlte2-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

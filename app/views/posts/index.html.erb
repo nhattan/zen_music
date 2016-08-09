@@ -1,3 +1,9 @@
+<% if user_signed_in? %>
+  <a href="<%= destroy_user_session_path %>" class="btn btn-default btn-flat" data-method="delete">Sign out</a>
+<% else %>
+  <a href="<%= new_user_session_path %>" class="btn btn-default btn-flat">Sign in</a>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Posts</h1>
