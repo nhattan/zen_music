@@ -1,0 +1,42 @@
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/"><b>Brain Spa</b></a>
+  </div><!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Edit <%= resource_name.to_s.humanize %></p>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="form-group has-feedback">
+        <%= f.text_field :email, class: 'form-control', autofocus: true, placeholder: 'Email' %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+
+      <div class="form-group has-feedback">
+        <%= f.password_field :password, class: 'form-control', autocomplete: 'off', placeholder: "Password (leave blank if you don't want to change it)" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+
+      <div class="form-group has-feedback">
+        <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off', placeholder: 'Password confirmation' %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+
+      <div class="form-group has-feedback">
+        <%= f.password_field :current_password, class: 'form-control', autocomplete: 'off', placeholder: 'Current password' %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit 'Update', class: 'btn btn-primary btn-block btn-flat' %>
+      </div>
+
+      <div class="form-group">
+        <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+    <%= link_to "Back", :back %>
+  </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->
