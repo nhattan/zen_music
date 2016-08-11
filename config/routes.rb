@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  root "posts#index"
-  resources :posts
-
   devise_for :users
 
   # token auth routes available at /api/v1/auth
