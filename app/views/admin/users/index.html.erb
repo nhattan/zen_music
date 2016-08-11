@@ -1,0 +1,39 @@
+<%= content_for :title, "Users" %>
+
+<div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title">All Users</h3>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Admin</th>
+          <th>Created at</th>
+          <th>Updated at</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.name %></td>
+            <td><%= user.phone %></td>
+            <td><%= user.admin %></td>
+            <td><%= user.created_at %></td>
+            <td><%= user.updated_at %></td>
+            <td>
+              <%= link_to 'Show', admin_user_path(user), class: 'btn btn-default btn-sm' %>
+              <%= link_to 'Edit', edit_admin_user_path(user), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Delete', admin_user_path(user), class: 'btn btn-danger btn-sm', :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

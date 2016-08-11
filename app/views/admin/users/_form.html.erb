@@ -1,0 +1,39 @@
+<%= form_for [:admin, @user] do |f| %>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="box box-solid">
+        <div class="box-header">
+          <div class="box-body pad">
+            <%= render "admin/shared/form_error", record: @user %>
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.email_field :email, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :admin %>
+              <%= f.check_box :admin %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box box-solid">
+        <div class="box-header"></div>
+        <div class="box-body">
+          <div class="form-group">
+            <%= f.submit class: "btn btn-success btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
