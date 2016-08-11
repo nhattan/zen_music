@@ -34,8 +34,6 @@ gem 'adminlte2-rails'
 gem 'rails-assets-jquery-slimscroll', source: 'https://rails-assets.org'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'pry-rails'
