@@ -17,6 +17,12 @@
               <%= f.label :limited_access %>
               <%= f.check_box :limited_access %>
             </div>
+            <div class="form-group">
+              <%= f.label :thumbnail %>
+              <%= image_tag(@category.thumbnail_url(:thumb)) if @category.thumbnail? %>
+              <%= f.file_field :thumbnail %>
+              <%= f.hidden_field :thumbnail_cache %>
+            </div>
           </div>
         </div>
       </div>

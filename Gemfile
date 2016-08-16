@@ -33,6 +33,9 @@ gem 'newrelic_rpm'
 gem 'adminlte2-rails'
 gem 'rails-assets-jquery-slimscroll', source: 'https://rails-assets.org'
 gem 'kaminari'
+gem 'carrierwave'
+gem 'fog-aws'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'rspec-rails'

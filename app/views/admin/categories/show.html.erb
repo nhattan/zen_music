@@ -25,6 +25,12 @@
         </td>
       </tr>
       <tr>
+        <td><b>Thumbnail</b></td>
+        <td>
+          <%= image_tag(@category.thumbnail_url(:thumb)) if @category.thumbnail? %>
+        </td>
+      </tr>
+      <tr>
         <td><b>Created at</b></td>
         <td>
           <%= @category.created_at %>

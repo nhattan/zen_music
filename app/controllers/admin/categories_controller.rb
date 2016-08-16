@@ -50,6 +50,6 @@ class Admin::CategoriesController < Admin::ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:name, :description, :limited_access)
+      params.require(:category).permit(:name, :description, :limited_access, :thumbnail, :thumbnail_cache)
     end
 end
