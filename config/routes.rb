@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     root "dashboard#index"
     resources :dashboard, only: [:index]
     resources :users, except: [:new]
+    resources :categories
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

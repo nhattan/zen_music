@@ -1,0 +1,35 @@
+<%= form_for [:admin, @category] do |f| %>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="box box-solid">
+        <div class="box-header">
+          <div class="box-body pad">
+            <%= render "admin/shared/form_error", record: @category %>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_field :description, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :limited_access %>
+              <%= f.check_box :limited_access %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box box-solid">
+        <div class="box-header"></div>
+        <div class="box-body">
+          <div class="form-group">
+            <%= f.submit class: "btn btn-success btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
