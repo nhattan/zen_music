@@ -1,0 +1,8 @@
+<% if @audio.new_record? %>
+  $(".size").text("Failed")
+<% else %>
+  $("#audio_uploaded_file_url").text("<%= @audio.uploaded_file_url %>")
+  $("#audio_uploaded_file_url").attr('href', "<%= @audio.uploaded_file_url %>")
+  $(".size").text("Uploaded")
+  $("#save_audio").removeAttr('disabled')
+<% end %>

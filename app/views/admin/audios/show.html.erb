@@ -1,0 +1,59 @@
+<%= content_for :title, "Show Audio" %>
+
+<%= link_to 'Back', admin_audios_path, class: 'btn btn-default' %>
+<%= link_to 'Edit', edit_admin_audio_path(@audio), class: 'btn btn-primary' %>
+
+<div class="box box-solid">
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <td><b>Name</b></td>
+        <td>
+          <%= @audio.name %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Uploaded file</b></td>
+        <td>
+          <%= audio_tag(@audio.uploaded_file_url, controls: true) if @audio.uploaded_file? %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Uploaded file URL</b></td>
+        <td>
+          <%= link_to @audio.uploaded_file_url, @audio.uploaded_file_url if @audio.uploaded_file? %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Description</b></td>
+        <td>
+          <%= @audio.description %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Category</b></td>
+        <td>
+          <%= link_to @audio.category.name, admin_category_path(@audio.category) %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Status</b></td>
+        <td>
+          <%= @audio.status %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Created at</b></td>
+        <td>
+          <%= @audio.created_at %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Updated at</b></td>
+        <td>
+          <%= @audio.updated_at %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:index]
     resources :users, except: [:new]
     resources :categories
+    resources :audios
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

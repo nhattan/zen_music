@@ -15,4 +15,6 @@
 //= require jquery_ujs
 //= require app
 //= require jquery-slimscroll
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree .

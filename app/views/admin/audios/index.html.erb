@@ -1,0 +1,37 @@
+<%= content_for :title, "Audios" %>
+
+<%= link_to "Add a new audio", new_admin_audio_path, class: "btn btn-success" %>
+
+<div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title">All Audios</h3>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @audios.each do |audio| %>
+          <tr>
+            <td><%= audio.name %></td>
+            <td><%= link_to audio.category.name, admin_category_path(audio.category) %></td>
+            <td><%= audio.status %></td>
+            <td>
+              <%= link_to 'Show', admin_audio_path(audio), class: 'btn btn-default btn-sm' %>
+              <%= link_to 'Edit', edit_admin_audio_path(audio), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Delete', admin_audio_path(audio), class: 'btn btn-danger btn-sm', :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= paginate @audios %>

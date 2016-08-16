@@ -20,7 +20,7 @@
             <div class="form-group">
               <%= f.label :thumbnail %>
               <%= image_tag(@category.thumbnail_url(:thumb)) if @category.thumbnail? %>
-              <%= f.file_field :thumbnail %>
+              <%= f.file_field :thumbnail, class: "form-control", accept: "image/*" %>
               <%= f.hidden_field :thumbnail_cache %>
             </div>
           </div>

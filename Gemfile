@@ -36,12 +36,14 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'mini_magick'
+gem 'jquery-fileupload-rails'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'pry-rails'
   gem 'awesome_print'
+  gem 'bullet'
 end
 
 group :development do

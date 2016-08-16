@@ -1,0 +1,85 @@
+<%= form_for [:admin, @audio], html: { multipart: true, id: "fileupload" } do |f| %>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="box box-solid">
+        <div class="box-header"></div>
+        <div class="box-body pad">
+          <%= render "admin/shared/form_error", record: @audio %>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control", required: true %>
+          </div>
+          <% if @audio.uploaded_file? %>
+            <div class="form-group">
+              <%= f.label :uploaded_file_url, "Uploaded file URL" %>
+              <br>
+              <%= link_to @audio.uploaded_file_url, @audio.uploaded_file_url, id: "audio_uploaded_file_url" %>
+            </div>
+          <% end %>
+          <div class="form-group">
+            <%= f.label :description %>
+            <%= f.text_field :description, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :uploaded_file, "Upload" %>
+            <br>
+            <div class='btn btn-primary fileinput-button'>
+              <i class='glyphicon glyphicon-plus'></i>
+              Select a file
+              <%= f.file_field :uploaded_file, accept: "audio/*" %>
+              <%= f.hidden_field :uploaded_file_cache %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box box-solid">
+        <div class="box-header"></div>
+        <div class="box-body">
+          <div class="form-group">
+            <%= f.label :category_id %>
+            <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-control" %>
+          </div>
+          <% if @audio.persisted? %>
+            <div class="form-group">
+              <%= f.label :status %>
+              <%= f.select :status, options_for_select(Audio.statuses.keys, f.object.status), {}, class: "form-control" %>
+            </div>
+          <% end %>
+          <div class="form-group">
+            <%= f.submit "Save", class: "btn btn-success btn-block", id: "save_audio" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="box box-solid">
+        <div class="box-body pad">
+          <table class="table">
+            <tbody>
+              <tr class="template-upload">
+                <td width="45%">
+                  <p class="name"><h3>{%=o.name%}</h3></p>
+                  <p class="size">Processing...</p>
+                  <strong class="error text-danger"></strong>
+                </td>
+                <td width="45%" style="vertical-align: middle;">
+                  <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                  </div>
+                  <p><h1 id="js-completed" align="center"></h1></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

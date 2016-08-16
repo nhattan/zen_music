@@ -1,0 +1,8 @@
+<% if @audio.new_record? %>
+  $(".size").text("Failed")
+<% else %>
+  $("#fileupload").attr('action', "<%= admin_audio_path(@audio) %>")
+  $("#fileupload").append('<input type="hidden" name="_method" value="patch">')
+  $(".size").text("Uploaded")
+  $("#save_audio").removeAttr('disabled')
+<% end %>
