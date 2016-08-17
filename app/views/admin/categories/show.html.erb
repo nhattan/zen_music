@@ -1,4 +1,4 @@
-<%= content_for :title, "Show Category" %>
+<%= content_for :title, @category.name %>
 
 <%= link_to 'Back', admin_categories_path, class: 'btn btn-default' %>
 <%= link_to 'Edit', edit_admin_category_path(@category), class: 'btn btn-primary' %>

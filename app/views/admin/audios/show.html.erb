@@ -1,4 +1,4 @@
-<%= content_for :title, "Show Audio" %>
+<%= content_for :title, @audio.name %>
 
 <%= link_to 'Back', admin_audios_path, class: 'btn btn-default' %>
 <%= link_to 'Edit', edit_admin_audio_path(@audio), class: 'btn btn-primary' %>

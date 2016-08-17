@@ -1,4 +1,4 @@
-<%= content_for :title, "Edit User" %>
+<%= content_for :title, "Edit #{@user.email}" %>
 
 <%= link_to "Back", :back, class: "btn btn-default" %>
 <%= link_to "Show", admin_user_path(@user), class: "btn btn-primary" %>
