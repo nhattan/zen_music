@@ -2,7 +2,12 @@ class Admin::AudiosController < Admin::ApplicationController
   before_action :set_audio, only: [:show, :edit, :update, :destroy]
 
   def index
-    @audios = Audio.includes(:category).page(params[:page]).per(20)
+    if params[:category_id].present?
+      @category = Category.find params[:category_id]
+      @audios = @category.audios.page(params[:page]).per(20)
+    else
+      @audios = Audio.includes(:category).page(params[:page]).per(20)
+    end
   end
 
   def show

@@ -1,9 +1,12 @@
 <%= content_for :title, @audio.name %>
 
-<%= link_to 'Back', admin_audios_path, class: 'btn btn-default' %>
+<%= link_to 'Back', :back, class: 'btn btn-default' %>
 <%= link_to 'Edit', edit_admin_audio_path(@audio), class: 'btn btn-primary' %>
 
 <div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title">Detail</h3>
+  </div>
   <div class="box-body table-responsive no-padding">
     <table class="table table-hover">
       <tr>

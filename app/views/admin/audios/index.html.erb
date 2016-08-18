@@ -1,10 +1,27 @@
 <%= content_for :title, "Audios" %>
 
-<%= link_to "Add a new audio", new_admin_audio_path, class: "btn btn-success" %>
+<%= link_to "Add a new audio", new_admin_audio_path(category_id: params[:category_id]), class: "btn btn-success" %>
 
 <div class="box box-solid">
   <div class="box-header">
     <h3 class="box-title"></h3>
+    <% if @category %>
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li>
+            <%= link_to @category.name, admin_category_path(@category) %>
+          </li>
+          <li class="active">
+            <%= link_to admin_audios_path(category_id: @category.id) do %>
+              Audios
+              <small class="badge pull-right bg-yellow">
+                <%= @category.audios.count %>
+              </small>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
   </div>
   <div class="box-body table-responsive no-padding">
     <table class="table table-hover">

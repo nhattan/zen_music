@@ -39,7 +39,7 @@
         <div class="box-body">
           <div class="form-group">
             <%= f.label :category_id %>
-            <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-control" %>
+            <%= f.collection_select :category_id, Category.all, :id, :name, {selected: params[:category_id]}, class: "form-control" %>
           </div>
           <% if @audio.persisted? %>
             <div class="form-group">
