@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     scope :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
       resources :categories, only: [:index, :show]
+      resources :audios, only: [:index, :show]
     end
   end
 
