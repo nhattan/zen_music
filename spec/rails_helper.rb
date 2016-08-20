@@ -54,4 +54,24 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+end
+
+def json_response
+  JSON.parse response.body
+end
+
+def authentication_header user
+  client_id = SecureRandom.urlsafe_base64(nil, false)
+  access_token = user.create_new_auth_token(client_id)["access-token"]
+  {
+    "format" => "json",
+    "access-token" => access_token,
+    "token-type" =>   "Bearer",
+    "client" =>       client_id,
+    "uid" =>          user.email
+  }
 end

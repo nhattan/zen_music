@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
-  after_create :send_confirmation_email, if: -> { User.devise_modules.include?(:confirmable) }
+  after_create :send_confirmation_email, if: -> { !Rails.env.test? && User.devise_modules.include?(:confirmable) }
+
+  has_many :listens
 
   private
   def send_confirmation_email
