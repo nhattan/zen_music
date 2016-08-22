@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   has_many :listens
 
+  enum role: [:normal_user, :special_user, :admin]
+
   private
   def send_confirmation_email
     self.send_confirmation_instructions
