@@ -7,4 +7,6 @@ class Audio < ActiveRecord::Base
   validates :name, presence: true
 
   enum status: [:draft, :approved]
+
+  scope :top, -> { Audio.approved.order("listens_count desc") }
 end

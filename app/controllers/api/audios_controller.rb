@@ -7,4 +7,8 @@ class Api::AudiosController < Api::ApplicationController
     @audio = Audio.approved.find params[:id]
     @listen = current_user.listens.create audio: @audio
   end
+
+  def top
+    @audios = Audio.top
+  end
 end

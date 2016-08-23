@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :category do
-    sequence(:name){ Faker::Music.instrument }
+    sequence(:name){ |n| "Category #{n}" }
   end
 end

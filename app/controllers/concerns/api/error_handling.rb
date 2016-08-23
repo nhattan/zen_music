@@ -19,7 +19,7 @@ module Api::ErrorHandling
       else
         status = :unprocessable_entity
       end
-      render json: { success: 'false', message: error.message }, status: status
+      render json: { success: false, errors: [error.message] }, status: status
     end
   end
 end
