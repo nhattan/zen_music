@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           get :top
         end
       end
+      resources :likes, only: [:create]
     end
   end
 

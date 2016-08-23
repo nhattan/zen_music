@@ -68,10 +68,19 @@ def authentication_header user
   client_id = SecureRandom.urlsafe_base64(nil, false)
   access_token = user.create_new_auth_token(client_id)["access-token"]
   {
+    "CONTENT_TYPE" => "application/json",
+    "ACCEPT" => "application/json",
     "format" => "json",
     "access-token" => access_token,
     "token-type" =>   "Bearer",
     "client" =>       client_id,
     "uid" =>          user.email
   }
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end

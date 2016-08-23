@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823082125) do
+ActiveRecord::Schema.define(version: 20160823095318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160823082125) do
     t.datetime "updated_at",                null: false
     t.string   "description"
     t.integer  "listens_count", default: 0
+    t.integer  "likes_count",   default: 0
   end
 
   add_index "audios", ["category_id"], name: "index_audios_on_category_id", using: :btree
@@ -37,6 +38,16 @@ ActiveRecord::Schema.define(version: 20160823082125) do
     t.datetime "updated_at",                     null: false
     t.string   "thumbnail"
   end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "audio_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "likes", ["audio_id"], name: "index_likes_on_audio_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "listens", force: :cascade do |t|
     t.integer  "user_id"
@@ -80,6 +91,8 @@ ActiveRecord::Schema.define(version: 20160823082125) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "audios", "categories"
+  add_foreign_key "likes", "audios"
+  add_foreign_key "likes", "users"
   add_foreign_key "listens", "audios"
   add_foreign_key "listens", "users"
 end

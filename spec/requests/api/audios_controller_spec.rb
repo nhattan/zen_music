@@ -47,7 +47,7 @@ RSpec.describe Api::AudiosController, type: :request do
 
       context "approved audio" do
         before do
-          audio.update status: 'approved'
+          audio.approved!
         end
         it "responds successfully with an HTTP 200 status code" do
           get "/api/v1/audios/#{audio.id}", authentication_header(user)
