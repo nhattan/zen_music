@@ -36,7 +36,7 @@
       <tbody>
         <% @audios.each do |audio| %>
           <tr>
-            <td><%= audio.name %></td>
+            <td><%= link_to audio.name, admin_audio_path(audio) %></td>
             <td><%= link_to audio.category.name, admin_category_path(audio.category) %></td>
             <td><%= audio.status %></td>
             <td>
