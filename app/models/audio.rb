@@ -5,9 +5,17 @@ class Audio < ActiveRecord::Base
   has_many :likes
   belongs_to :category
 
+  delegate :thumbnail, to: :category
+
   validates :name, presence: true
 
   enum status: [:draft, :approved]
 
   scope :top, -> { Audio.approved.order("listens_count desc") }
+
+  def as_json(options = nil)
+    options ||= {}
+    options.merge!(include: :thumbnail)
+    super options
+  end
 end

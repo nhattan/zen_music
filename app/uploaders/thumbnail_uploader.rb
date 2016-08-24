@@ -31,12 +31,16 @@ class ThumbnailUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process resize_to_fill: [280, 280]
+  version :medium do
+    process resize_to_fill: [414, 114]
   end
 
-  version :small_thumb, from_version: :thumb do
-    process resize_to_fill: [100, 100]
+  version :small, from_version: :medium do
+    process resize_to_fill: [375, 114]
+  end
+
+  version :smaller, from_version: :small do
+    process resize_to_fill: [320, 114]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

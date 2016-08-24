@@ -45,7 +45,7 @@
       <tr>
         <td><b>Thumbnail</b></td>
         <td>
-          <%= image_tag(@category.thumbnail_url(:thumb)) if @category.thumbnail? %>
+          <%= image_tag(@category.thumbnail_url(:medium)) if @category.thumbnail? %>
         </td>
       </tr>
       <tr>
