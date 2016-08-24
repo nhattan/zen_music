@@ -37,6 +37,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'mini_magick'
 gem 'jquery-fileupload-rails'
+gem 'paranoia'
 
 group :development, :test do
   gem 'rspec-rails'
