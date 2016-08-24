@@ -1,15 +1,15 @@
 class Api::LikesController < Api::ApplicationController
-  before_action :get_audio, only: [:create]
+  before_action :get_audio, only: [:create, :destroy]
 
   def create
-    like = @audio.likes.create user: current_user
+    like = @audio.likes.create! user: current_user
     @audio = like.audio
   end
 
   def destroy
-    like = Like.find params[:id]
+    like = @audio.likes.find_by! user_id: current_user.id
     like.destroy
-    @audio = like.audio.reload
+    @audio = @audio.reload
   end
 
   private

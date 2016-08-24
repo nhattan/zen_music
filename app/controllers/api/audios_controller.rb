@@ -5,7 +5,7 @@ class Api::AudiosController < Api::ApplicationController
 
   def show
     @audio = Audio.approved.find params[:id]
-    @listen = current_user.listens.create audio: @audio
+    @listen = current_user.listens.create! audio: @audio
   end
 
   def top

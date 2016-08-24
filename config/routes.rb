@@ -13,7 +13,8 @@ Rails.application.routes.draw do
           get :top
         end
       end
-      resources :likes, only: [:create, :destroy]
+      resources :likes, only: [:create]
+      delete "likes", to: "likes#destroy"
     end
   end
 

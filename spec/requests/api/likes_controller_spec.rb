@@ -4,13 +4,13 @@ RSpec.describe Api::LikesController, type: :request do
   let(:user) { FactoryGirl.create(:user) }
   let(:audio) { FactoryGirl.create(:audio) }
 
-  describe "#create" do
-    let(:params) do
-      {
-        audio_id: audio.id,
-      }.to_json
-    end
+  let(:params) do
+    {
+      audio_id: audio.id,
+    }.to_json
+  end
 
+  describe "#create" do
     context "invalid header" do
       before do
         headers = {:format => :json}
@@ -39,19 +39,33 @@ RSpec.describe Api::LikesController, type: :request do
         before do
           audio.approved!
         end
-        it "responds successfully with an HTTP 200 status code" do
-          post "/api/v1/likes", params, authentication_header(user)
-          expect(response).to be_success
-          expect(response).to have_http_status(200)
+        context "already liked audio" do
+          before do
+            @like = FactoryGirl.create(:like, audio: audio, user: user)
+          end
+          it "responds successfully with an HTTP 422 status code" do
+            post "/api/v1/likes", params, authentication_header(user)
+            expect(response).to have_http_status(422)
+          end
+          it "does not create like" do
+            expect{post "/api/v1/likes", params, authentication_header(user)}.to change{audio.likes.count}.by(0)
+          end
         end
-        it "creates like" do
-          expect{post "/api/v1/likes", params, authentication_header(user)}.to change{Like.count}.by(1)
-        end
-        it "responses expected body" do
-          post "/api/v1/likes", params, authentication_header(user)
-          expect(json_response["success"]).to be true
-          expect(json_response["data"]["audio"]).to eq(JSON.parse(audio.reload.to_json))
-          expect(json_response["data"]["audio"]["likes_count"]).to eq(1)
+        context "not liked yet" do
+          it "responds successfully with an HTTP 200 status code" do
+            post "/api/v1/likes", params, authentication_header(user)
+            expect(response).to be_success
+            expect(response).to have_http_status(200)
+          end
+          it "creates like" do
+            expect{post "/api/v1/likes", params, authentication_header(user)}.to change{Like.count}.by(1)
+          end
+          it "responses expected body" do
+            post "/api/v1/likes", params, authentication_header(user)
+            expect(json_response["success"]).to be true
+            expect(json_response["data"]["audio"]).to eq(JSON.parse(audio.reload.to_json))
+            expect(json_response["data"]["audio"]["likes_count"]).to eq(1)
+          end
         end
       end
     end
@@ -64,7 +78,7 @@ RSpec.describe Api::LikesController, type: :request do
     context "invalid header" do
       before do
         headers = {:format => :json}
-        delete "/api/v1/likes/#{like.id}", headers
+        delete "/api/v1/likes", params, headers
       end
       it "responds with an HTTP 401 status code" do
         expect(response).to have_http_status(401)
@@ -73,15 +87,15 @@ RSpec.describe Api::LikesController, type: :request do
 
     context "valid header" do
       it "responds successfully with an HTTP 200 status code" do
-        delete "/api/v1/likes/#{like.id}", authentication_header(user)
+        delete "/api/v1/likes", params, authentication_header(user)
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
       it "destroys like" do
-        expect{delete "/api/v1/likes/#{like.id}", authentication_header(user)}.to change{Like.count}.from(1).to(0)
+        expect{delete "/api/v1/likes", params, authentication_header(user)}.to change{Like.count}.from(1).to(0)
       end
       it "responses expected body" do
-        delete "/api/v1/likes/#{like.id}", authentication_header(user)
+        delete "/api/v1/likes", params, authentication_header(user)
         expect(json_response["success"]).to be true
         expect(json_response["data"]["audio"]).to eq(JSON.parse(audio.reload.to_json))
         expect(json_response["data"]["audio"]["likes_count"]).to eq(0)
