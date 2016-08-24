@@ -13,5 +13,6 @@ CarrierWave.configure do |config|
     config.fog_directory  = ENV['AWS_BUCKET']
     config.fog_public     = false
     config.fog_attributes = { 'Cache-Control' => "max-age=#{365.day}" }
+    # config.cache_dir = "/tmp/uploads" uncommend it to work on Heroku/AWS EC2
   end
 end
