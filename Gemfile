@@ -39,6 +39,8 @@ gem 'mini_magick'
 gem 'jquery-fileupload-rails'
 gem 'paranoia'
 gem 'rails-settings-cached'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 
 group :development, :test do
   gem 'rspec-rails'

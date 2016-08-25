@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 
   enum role: [:normal_user, :special_user, :admin]
 
+  def plan_is_expired?
+    !!plan_expires_in && plan_expires_in <= Time.current
+  end
+
   private
   def send_confirmation_email
     self.send_confirmation_instructions

@@ -17,4 +17,7 @@
 //= require jquery-slimscroll
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require moment
+//= require moment/vi
+//= require bootstrap-datetimepicker
 //= require_tree .

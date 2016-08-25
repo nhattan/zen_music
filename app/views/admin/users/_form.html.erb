@@ -15,12 +15,28 @@
             </div>
             <div class="form-group">
               <%= f.label :phone %>
-              <%= f.text_field :phone, class: "form-control" %>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-phone"></i>
+                </div>
+                <%= f.datetime_field :phone, class: "form-control" %>
+              </div>
             </div>
             <div class="form-group">
               <%= f.label :role %>
               <%= f.collection_select :role, User.roles.keys, :to_s, :humanize, {}, class: "form-control" %>
             </div>
+            <% if @user.persisted? && @user.normal_user? %>
+              <div class="form-group">
+                <%= f.label :plan_expires_in %>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <%= f.text_field :plan_expires_in, data: { :date_format => 'YYYY/MM/DD hh:mm' }, class: "form-control datetimepicker" %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
