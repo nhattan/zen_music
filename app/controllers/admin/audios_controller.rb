@@ -4,9 +4,9 @@ class Admin::AudiosController < Admin::ApplicationController
   def index
     if params[:category_id].present?
       @category = Category.find params[:category_id]
-      @audios = @category.audios.page(params[:page]).per(20)
+      @audios = @category.audios.page(params[:page]).per(Setting.admin_per_page)
     else
-      @audios = Audio.includes(:category).page(params[:page]).per(20)
+      @audios = Audio.includes(:category).page(params[:page]).per(Setting.admin_per_page)
     end
   end
 

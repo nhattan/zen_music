@@ -9,6 +9,6 @@ class Api::AudiosController < Api::ApplicationController
   end
 
   def top
-    @audios = Audio.top.limit(10)
+    @audios = Audio.top.limit(Setting.top_audio_quantity)
   end
 end

@@ -1,0 +1,24 @@
+<div class="box box-solid">
+  <%= form_tag url: admin_settings_url, method: :post do %>
+    <div class="box-body pad">
+      <div class="form-group">
+        <%= label_tag :top_audio_quantity %>
+        <%= number_field_tag :top_audio_quantity, Setting.top_audio_quantity, class: "form-control", placeholder: "10" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :price, "Price for 1 month" %>
+        <div class="input-group">
+          <%= number_field_tag :price, Setting.price, class: "form-control", placeholder: "200000" %>
+          <span class="input-group-addon">VND</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= label_tag :admin_per_page, "Number of records per page" %>
+        <%= number_field_tag :admin_per_page, Setting.admin_per_page, class: "form-control", placeholder: "20" %>
+      </div>
+    </div>
+    <div class="box-footer">
+      <%= submit_tag "Save", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
