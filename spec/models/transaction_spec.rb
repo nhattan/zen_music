@@ -16,12 +16,24 @@ RSpec.describe Transaction, :type => :model do
     end
 
     context "plan_expires_in is present" do
-      before do
-        user.update plan_expires_in: 32.days.from_now
+      context "plan_expires_in is greater than current time" do
+        before do
+          user.update plan_expires_in: 32.days.from_now
+        end
+        it "adds correctly number of days to plan_expires_in" do
+          transaction = FactoryGirl.create(:transaction, user: user)
+          expect(user.plan_expires_in).to be > 32.days.from_now + transaction.send(:duration) - 5.seconds
+        end
       end
-      it "adds correctly number of days to plan_expires_in" do
-        transaction = FactoryGirl.create(:transaction, user: user)
-        expect(user.plan_expires_in).to be > 32.days.from_now + transaction.send(:duration) - 5.seconds
+
+      context "plan_expires_in is less than current time" do
+        before do
+          user.update plan_expires_in: 2.days.ago
+        end
+        it "adds correctly number of days to plan_expires_in" do
+          transaction = FactoryGirl.create(:transaction, user: user)
+          expect(user.plan_expires_in).to be > Time.current + transaction.send(:duration) - 5.seconds
+        end
       end
     end
   end

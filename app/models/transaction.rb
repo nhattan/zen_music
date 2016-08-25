@@ -9,8 +9,10 @@ class Transaction < ActiveRecord::Base
 
   private
   def update_user_plan_expires_in!
-    if user.plan_expires_in
+    if user.plan_expires_in && user.plan_expires_in > Time.current
       plan_expires_in = user.plan_expires_in + duration
+    elsif user.plan_expires_in && user.plan_expires_in <= Time.current
+      plan_expires_in = Time.current + duration
     else
       plan_expires_in = Time.current + duration
     end
