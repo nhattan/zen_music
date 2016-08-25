@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :audios
     resources :settings, only: [:index, :create]
+    resources :transactions, except: [:edit, :update, :destroy]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

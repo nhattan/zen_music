@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825085741) do
+ActiveRecord::Schema.define(version: 20160825113552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,31 @@ ActiveRecord::Schema.define(version: 20160825085741) do
   end
 
   add_index "audios", ["category_id"], name: "index_audios_on_category_id", using: :btree
+
+  create_table "audits", force: :cascade do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         default: 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.string   "request_uuid"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], name: "associated_index", using: :btree
+  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
+  add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
+  add_index "audits", ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
+  add_index "audits", ["updated_at"], name: "index_audits_on_updated_at", using: :btree
+  add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",                           null: false
@@ -72,6 +97,15 @@ ActiveRecord::Schema.define(version: 20160825085741) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "amount",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
     t.string   "uid",                    default: "",      null: false
@@ -109,4 +143,5 @@ ActiveRecord::Schema.define(version: 20160825085741) do
   add_foreign_key "likes", "users"
   add_foreign_key "listens", "audios"
   add_foreign_key "listens", "users"
+  add_foreign_key "transactions", "users"
 end

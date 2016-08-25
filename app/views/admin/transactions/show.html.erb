@@ -1,0 +1,50 @@
+<%= content_for :title, @transaction.id %>
+
+<%= link_to 'Back', :back, class: 'btn btn-default' %>
+
+<div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title"></h3>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tr>
+        <td><b>ID</b></td>
+        <td>
+          <%= @transaction.id %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>User</b></td>
+        <td>
+          <%= link_to @transaction.user.email, admin_user_path(@transaction.user) %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Amount</b></td>
+        <td>
+          <%= @transaction.amount %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Last modified by</b></td>
+        <td>
+          <% modifier = @transaction.audits.last.user %>
+          <%= link_to modifier.email, admin_user_path(modifier) %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Created at</b></td>
+        <td>
+          <%= @transaction.created_at %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Updated at</b></td>
+        <td>
+          <%= @transaction.updated_at %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

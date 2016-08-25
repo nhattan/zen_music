@@ -41,6 +41,7 @@ gem 'paranoia'
 gem 'rails-settings-cached'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
+gem 'audited-activerecord'
 
 group :development, :test do
   gem 'rspec-rails'

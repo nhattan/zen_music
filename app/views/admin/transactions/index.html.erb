@@ -1,0 +1,37 @@
+<%= content_for :title, "Categories" %>
+
+<%= link_to "Add a new transaction", new_admin_transaction_path, class: "btn btn-success" %>
+
+<div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title"></h3>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Created at</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <tr>
+            <td><%= link_to transaction.id, admin_transaction_path(transaction) %></td>
+            <td><%= link_to transaction.user.email, admin_user_path(transaction.user) %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.created_at %></td>
+            <td>
+              <%= link_to 'Show', admin_transaction_path(transaction), class: 'btn btn-default btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= paginate @transactions %>
