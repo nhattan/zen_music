@@ -8,21 +8,26 @@ RSpec.describe Transaction, :type => :model do
   let(:user) { FactoryGirl.create(:user) }
 
   describe "#update_user_plan_expires_in!" do
+    before do
+      @current_time = Time.current
+    end
     context "plan_expires_in is nil" do
       it "adds correctly number of days to plan_expires_in" do
+        allow(Time).to receive(:current).and_return(@current_time)
         transaction = FactoryGirl.create(:transaction, user: user)
-        expect(user.plan_expires_in).to be > Time.current + transaction.send(:duration) - 5.seconds
+        expect(user.plan_expires_in).to eq(Time.current + transaction.send(:duration))
       end
     end
 
     context "plan_expires_in is present" do
       context "plan_expires_in is greater than current time" do
         before do
-          user.update plan_expires_in: 32.days.from_now
+          user.update plan_expires_in: @current_time + 1.month
         end
         it "adds correctly number of days to plan_expires_in" do
+          allow(Time).to receive(:current).and_return(@current_time)
           transaction = FactoryGirl.create(:transaction, user: user)
-          expect(user.plan_expires_in).to be > 32.days.from_now + transaction.send(:duration) - 5.seconds
+          expect(user.plan_expires_in).to eq(Time.current + 1.month + transaction.send(:duration))
         end
       end
 
@@ -31,8 +36,9 @@ RSpec.describe Transaction, :type => :model do
           user.update plan_expires_in: 2.days.ago
         end
         it "adds correctly number of days to plan_expires_in" do
+          allow(Time).to receive(:current).and_return(@current_time)
           transaction = FactoryGirl.create(:transaction, user: user)
-          expect(user.plan_expires_in).to be > Time.current + transaction.send(:duration) - 5.seconds
+          expect(user.plan_expires_in).to  eq(Time.current + transaction.send(:duration))
         end
       end
     end
