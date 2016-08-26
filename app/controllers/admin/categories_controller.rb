@@ -2,7 +2,6 @@ class Admin::CategoriesController < Admin::ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @categories = Category.order(:name).page(params[:page]).per(Setting.admin_per_page)
   end
 
   def show
@@ -50,6 +49,6 @@ class Admin::CategoriesController < Admin::ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:name, :description, :limited_access, :thumbnail, :thumbnail_cache)
+      params.require(:category).permit(:name, :description, :limited_access, :thumbnail, :thumbnail_cache, :parent_id)
     end
 end

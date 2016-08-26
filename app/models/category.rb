@@ -1,5 +1,9 @@
 class Category < ActiveRecord::Base
   mount_uploader :thumbnail, ThumbnailUploader
+  extend ActsAsTree::TreeWalker
+  extend ActsAsTree::TreeView
+
+  acts_as_tree order: "name"
 
   validates :name, presence: true, uniqueness: true
 

@@ -37,6 +37,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_tree (2.5.0)
+      activerecord (>= 3.0.0)
     adminlte2-rails (0.0.6)
       bootstrap-sass (~> 3.3.4.1)
     airbrussh (1.1.0)
@@ -318,6 +320,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_tree
   adminlte2-rails
   audited-activerecord
   awesome_print

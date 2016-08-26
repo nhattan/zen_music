@@ -42,6 +42,7 @@ gem 'rails-settings-cached'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'audited-activerecord'
+gem 'acts_as_tree'
 
 group :development, :test do
   gem 'rspec-rails'

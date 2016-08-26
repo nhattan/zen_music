@@ -24,6 +24,49 @@
   </div>
   <div class="box-body table-responsive no-padding">
     <table class="table table-hover">
+      <% if @category.parent %>
+        <tr>
+          <td>
+            <%= link_to admin_category_path(@category.parent) do %>
+              <i class="fa fa-arrow-left"></i>
+              <i class="fa fa-folder-open"></i>
+              <%= @category.parent.name %>
+            <% end %>
+          </td>
+          <td>Parent category</td>
+        </tr>
+      <% else %>
+        <tr>
+          <td>
+            <%= link_to admin_categories_path do %>
+              <i class="fa fa-arrow-left"></i>
+              All categories
+            <% end %>
+          </td>
+          <td></td>
+        </tr>
+      <% end %>
+      <% @category.walk_tree do |category, level| %>
+        <tr>
+          <td>
+            <%= link_to admin_category_path(category) do %>
+              <%= "#{'*'*level}" %>
+              <i class="fa fa-folder-open"></i>
+              <%= category.name %>
+            <% end %>
+          </td>
+          <td>Sub category level <%= level %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td>
+          <%= link_to new_admin_category_path(category_id: params[:id]) do %>
+            <i class="fa fa-folder-open-o"></i>
+            New category
+          <% end %>
+        </td>
+        <td>Create a new category belongs to this category</td>
+      </tr>
       <tr>
         <td><b>Name</b></td>
         <td>

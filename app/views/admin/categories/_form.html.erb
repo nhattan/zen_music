@@ -14,10 +14,6 @@
               <%= f.text_field :description, class: "form-control" %>
             </div>
             <div class="form-group">
-              <%= f.label :limited_access %>
-              <%= f.check_box :limited_access %>
-            </div>
-            <div class="form-group">
               <%= f.label :thumbnail %>
               <%= image_tag(@category.thumbnail_url(:medium)) if @category.thumbnail? %>
               <%= f.file_field :thumbnail, class: "form-control", accept: "image/*" %>
@@ -31,6 +27,23 @@
       <div class="box box-solid">
         <div class="box-header"></div>
         <div class="box-body">
+          <div class="form-group">
+            <%= f.label :limited_access %>
+            <%= f.check_box :limited_access %>
+          </div>
+          <div class="form-group">
+            <%= f.label :parent_id %>
+            <select class="form-control" name="category[parent_id]" id="category_parent_id">
+              <option></option>
+              <% Category.walk_tree do |category, level| %>
+                <% if category.id == @category.parent_id || category.id.to_s == params[:category_id] %>
+                  <option selected="selected" value="<%= category.id %>"><%= "#{'*'*level}#{category.name}" %></option>
+                <% else %>
+                  <option value="<%= category.id %>"><%= "#{'*'*level}#{category.name}" %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
           <div class="form-group">
             <%= f.submit class: "btn btn-success btn-block" %>
           </div>

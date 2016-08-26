@@ -17,9 +17,15 @@
         </tr>
       </thead>
       <tbody>
-        <% @categories.each do |category| %>
+        <% Category.walk_tree do |category, level| %>
           <tr>
-            <td><%= link_to category.name, admin_category_path(category) %></td>
+            <td>
+              <%= link_to admin_category_path(category) do %>
+                <%= "#{'*'*level}" %>
+                <i class="fa fa-folder-open"></i>
+                <%= category.name %>
+              <% end %>
+            </td>
             <td><%= category.description %></td>
             <td><%= category.limited_access %></td>
             <td>
@@ -33,5 +39,3 @@
     </table>
   </div>
 </div>
-
-<%= paginate @categories %>
