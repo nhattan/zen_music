@@ -2,6 +2,7 @@ class Category < ActiveRecord::Base
   mount_uploader :thumbnail, ThumbnailUploader
   extend ActsAsTree::TreeWalker
   extend ActsAsTree::TreeView
+  include CustomThumbnailJson
 
   acts_as_tree order: "name"
 
