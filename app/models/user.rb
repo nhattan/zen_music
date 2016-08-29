@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
     !!plan_expires_in && plan_expires_in <= Time.current
   end
 
+  def favorite_audios
+    audio_ids = likes.pluck(:audio_id)
+    Audio.approved.where(id: audio_ids)
+  end
+
   private
   def send_confirmation_email
     self.send_confirmation_instructions

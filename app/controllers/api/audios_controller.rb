@@ -11,4 +11,8 @@ class Api::AudiosController < Api::ApplicationController
   def top
     @audios = Audio.top.limit(Setting.top_audio_quantity)
   end
+
+  def favorite
+    @audios = current_user.favorite_audios.order(created_at: :desc)
+  end
 end

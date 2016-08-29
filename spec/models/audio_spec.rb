@@ -41,4 +41,18 @@ RSpec.describe Audio, :type => :model do
       expect(Audio.top[3]).to eq(audio_2)
     end
   end
+
+  describe "#favorite_audios" do
+    let!(:like_1) { FactoryGirl.create(:like, user: user_1, audio: audio_1) }
+    let!(:like_2) { FactoryGirl.create(:like, user: user_1, audio: audio_2) }
+    let!(:like_3) { FactoryGirl.create(:like, user: user_1, audio: audio_3) }
+    let!(:like_4) { FactoryGirl.create(:like, user: user_1, audio: audio_4) }
+    let!(:like_5) { FactoryGirl.create(:like, user: user_2, audio: audio_5) }
+
+    it "returns all approved audios" do
+      expect(user_1.favorite_audios.all?(&:approved?)).to be true
+    end
+
+    it { expect(user_1.favorite_audios.ids).to eq([audio_1, audio_2, audio_3, audio_4].map(&:id))}
+  end
 end

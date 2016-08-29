@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :audios, only: [:index, :show] do
         collection do
           get :top
+          get :favorite
         end
       end
       resources :likes, only: [:create]

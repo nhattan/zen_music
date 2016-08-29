@@ -109,4 +109,42 @@ RSpec.describe Api::AudiosController, type: :request do
       end
     end
   end
+
+  describe "#favorite" do
+    before do
+      audio.approved!
+    end
+    let!(:audio_2) { FactoryGirl.create(:audio, status: :approved) }
+    let!(:like_1) { FactoryGirl.create(:like, user: user, audio: audio) }
+    let!(:like_2) { FactoryGirl.create(:like, user: user, audio: audio_2) }
+
+    context "valid header" do
+      before do
+        get "/api/v1/audios/favorite", authentication_header(user)
+      end
+      it "responds successfully with an HTTP 200 status code" do
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+      end
+      it "responses expected body" do
+        expect(json_response["success"]).to be true
+        expect(json_response["data"]["audios"]).to eq(JSON.parse(user.favorite_audios.order(created_at: :desc).to_json))
+      end
+
+      it "returns audios in expected order" do
+        expect(json_response["data"]["audios"][0]).to eq(JSON.parse(audio_2.to_json))
+        expect(json_response["data"]["audios"][1]).to eq(JSON.parse(audio.to_json))
+      end
+    end
+
+    context "invalid header" do
+      before do
+        headers = {:format => :json}
+        get "/api/v1/audios/favorite", headers
+      end
+      it "responds with an HTTP 401 status code" do
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
 end
