@@ -75,4 +75,10 @@ RSpec.describe Transaction, :type => :model do
       end
     end
   end
+
+  describe "#send_invoice!" do
+    it "sends an email" do
+      expect{ FactoryGirl.create(:transaction) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
 end

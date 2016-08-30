@@ -1,0 +1,18 @@
+Hi <%= @user.email %>,
+
+Thank you for your purchase!
+
+Here is your invoice detail:
+
+Invoice Date: <%= @transaction.created_at.to_date %>
+
+Transaction ID: <%= @transaction.id %>
+
+Total: <%= money_amount_in_vnd(@transaction.amount) %>
+
+Your account is valid until: <%= @user.plan_expires_in.to_date %>
+
+Have a great day!
+
+Best regards,
+Brain Spa
