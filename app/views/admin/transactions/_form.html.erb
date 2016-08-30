@@ -7,7 +7,7 @@
             <%= render "admin/shared/form_error", record: @transaction %>
             <div class="form-group">
               <%= f.label :user_id %>
-              <%= f.collection_select :user_id, User.normal_user, :id, :email, {}, class: "form-control", required: true %>
+              <%= f.collection_select :user_id, User.normal_user, :id, :email, {}, class: "form-control", id: "dropdown", required: true %>
             </div>
             <div class="form-group">
               <%= f.label :amount %>
