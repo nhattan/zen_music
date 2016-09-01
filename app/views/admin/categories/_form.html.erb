@@ -37,9 +37,9 @@
               <option></option>
               <% Category.walk_tree do |category, level| %>
                 <% if category.id == @category.parent_id || category.id.to_s == params[:category_id] %>
-                  <option selected="selected" value="<%= category.id %>"><%= "#{'*'*level}#{category.name}" %></option>
+                  <option selected="selected" value="<%= category.id %>"><%= "#{'-'*level}#{category.name}" %></option>
                 <% else %>
-                  <option value="<%= category.id %>"><%= "#{'*'*level}#{category.name}" %></option>
+                  <option value="<%= category.id %>"><%= "#{'-'*level}#{category.name}" %></option>
                 <% end %>
               <% end %>
             </select>
