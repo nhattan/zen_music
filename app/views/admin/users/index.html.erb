@@ -12,8 +12,7 @@
           <th>Name</th>
           <th>Phone</th>
           <th>Role</th>
-          <th>Created at</th>
-          <th>Updated at</th>
+          <th>Plan expires in</th>
           <th></th>
         </tr>
       </thead>
@@ -24,8 +23,7 @@
             <td><%= user.name %></td>
             <td><%= user.phone %></td>
             <td><%= user.role.humanize %></td>
-            <td><%= user.created_at %></td>
-            <td><%= user.updated_at %></td>
+            <td><%= user.plan_expires_in %></td>
             <td>
               <%= link_to 'Show', admin_user_path(user), class: 'btn btn-default btn-sm' %>
               <%= link_to 'Edit', edit_admin_user_path(user), class: 'btn btn-primary btn-sm' %>
