@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :listens
   has_many :likes
+  has_many :activities
 
   enum role: [:normal_user, :special_user, :admin]
 

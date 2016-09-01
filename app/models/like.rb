@@ -6,4 +6,15 @@ class Like < ActiveRecord::Base
 
   validates :audio_id, uniqueness: { scope: :user_id,
     message: "is already liked" }
+
+  after_create :create_activity
+
+  private
+  def create_activity
+    Activity.create(
+      subject: self,
+      name: 'like',
+      user: user
+    )
+  end
 end
