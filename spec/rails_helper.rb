@@ -67,15 +67,21 @@ def json_response
 end
 
 def authentication_header user
-  client_id = SecureRandom.urlsafe_base64(nil, false)
-  access_token = user.create_new_auth_token(client_id)["access-token"]
+  if DeviseTokenAuth.change_headers_on_each_request
+    @client_id = SecureRandom.urlsafe_base64(nil, false)
+    @access_token = user.create_new_auth_token(@client_id)["access-token"]
+  else
+    @client_id ||= SecureRandom.urlsafe_base64(nil, false)
+    @access_token ||= user.create_new_auth_token(@client_id)["access-token"]
+  end
+
   {
     "CONTENT_TYPE" => "application/json",
     "ACCEPT" => "application/json",
     "format" => "json",
-    "access-token" => access_token,
+    "access-token" => @access_token,
     "token-type" =>   "Bearer",
-    "client" =>       client_id,
+    "client" =>       @client_id,
     "uid" =>          user.email
   }
 end

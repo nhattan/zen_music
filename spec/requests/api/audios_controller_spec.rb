@@ -97,6 +97,18 @@ RSpec.describe Api::AudiosController, type: :request do
         expect(json_response["success"]).to be true
         expect(json_response["data"]["audios"]).to eq(JSON.parse(Audio.top.to_json))
       end
+      it do
+        expect(authentication_header(user)).to eq authentication_header(user)
+      end
+      it "can use valid old authentication_header for validation" do
+        get "/api/v1/audios/top", authentication_header(user)
+        expect(json_response["success"]).to be true
+        expect(json_response["data"]["audios"]).to eq(JSON.parse(Audio.top.to_json))
+
+        get "/api/v1/audios/top", authentication_header(user)
+        expect(json_response["success"]).to be true
+        expect(json_response["data"]["audios"]).to eq(JSON.parse(Audio.top.to_json))
+      end
     end
 
     context "invalid header" do
