@@ -57,6 +57,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'lol_dba'
   gem 'brakeman', :require => false
+  gem 'travis'
 end
 
 group :test do

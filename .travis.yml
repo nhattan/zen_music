@@ -3,12 +3,30 @@ sudo: required
 cache:
   bundler: true
 rvm:
-  - 2.3.1
+- 2.3.1
 addons:
-  postgresql: "9.3"
+  postgresql: '9.3'
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+- psql -c 'create database travis_ci_test;' -U postgres
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rspec
-  - bundle exec rake db:find_indexes
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rspec
+- bundle exec rake db:find_indexes
+before_deploy:
+  - zip -r latest *
+  - mkdir -p dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/latest.zip
+deploy:
+  provider: codedeploy
+  access_key_id: AKIAIWKR65ZVWBGV326Q
+  secret_access_key:
+    secure: HRpRtaPQAfewp0KjjUJG+pMuYe7Ra5sQIhXeHNg9ztmj3lJ1bUjh0cjYADqOtqnj6j1jxNI/znQyM25grvNHhCObIEbO8L07l1TLmIK2LYeiCCRpoN7+Od6Nwnrp+pG+MRIj/1BXmzSspeFOiQtxUfZMgvUGHFAsft70pA/ksu8khHNsfmJ0jMwYagcBCpdaAbhoe5pMxuIIUHietHfxLZINMEV27dO22AQCf745oh4TJIE1UjU9Tmk4ntm4UXR3FFHQQkyZXngjyD8YdLWNxOpIhyDtGaOe19lOr/DPc4dwfQfkiagTNcQSMTHdwuaW7vfVEGL87qis4WVlWnzAyDqFUxOgDevfpTTmE7weFEXw6/jHrhZfmQAcqBWwmyMDKWGuhlBuIezNPspWQqx+U17CtLJj6kCUy6jgEpISjFttoSG/h1S9Q0TKDj3k098yF/R8n9Ks5E0smcTkscigjlIon+j/3RI6SmLOLopwcR1+EOnQJYIDUCB7TsYlTbvQz+HijIxH6pO7eKt+PTNbPaXZ3I60dLarG4cI+ASptrM8il6FararsPoC0XzOwk4BymQjnWruC4Mvtf1OAitPC9LrI5z9vT7qaaCZCKQcPa2o5YM2WtUZX1//CQL8In67XCk07BA2/2wkX+2MrSyMdDUyqUQzqD4orwpsGgCTLUs=
+  bucket: zenmusic-codedeploy
+  key: latest.zip
+  bundle_type: zip
+  application: ZenMusic
+  deployment_group: ZenMusicGroup
+  on:
+    branch: master
+  wait-until-deployed: true
+  region: ap-southeast-1
