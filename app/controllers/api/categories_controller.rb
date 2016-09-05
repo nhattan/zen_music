@@ -3,7 +3,7 @@ class Api::CategoriesController < Api::ApplicationController
     if current_user.admin?
       @categories = Category.all
     else
-      @categories = Category.limited_access
+      @categories = Category.normal
     end
   end
 
@@ -11,7 +11,7 @@ class Api::CategoriesController < Api::ApplicationController
     if current_user.admin?
       @category = Category.find params[:id]
     else
-      @category = Category.limited_access.find params[:id]
+      @category = Category.normal.find params[:id]
     end
   end
 end
