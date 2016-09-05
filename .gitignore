@@ -25,3 +25,4 @@
 !.elasticbeanstalk/*.global.yml
 .byebug_history
 public/uploads
+coverage
