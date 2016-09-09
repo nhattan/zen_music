@@ -64,15 +64,15 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    :address   => "smtp.mandrillapp.com",
+    :address   => ENV["SMTP_ADDRESS"],
     :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
     :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => ENV["SMTP_USERNAME"],
     :password  => ENV["SMTP_PASSWORD"], # SMTP password is any valid API key
     :authentication => 'plain', # Mandrill supports 'plain' or 'login'
-    :domain => ENV["SMTP_DOMAIN"], # your domain to identify your server when connecting
+    :domain => ENV["DOMAIN_NAME"], # your domain to identify your server when connecting
   }
-  config.action_mailer.default_url_options = { host: ENV["SMTP_DOMAIN"] }
+  config.action_mailer.default_url_options = { host: ENV["DOMAIN_NAME"] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
