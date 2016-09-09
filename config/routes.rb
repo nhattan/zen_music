@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       end
       resources :likes, only: [:create]
       delete "likes", to: "likes#destroy"
+      resources :users, only: [:show]
     end
   end
 
