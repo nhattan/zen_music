@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:nhattan/zen_music.git'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/zen_music
-set :deploy_to, '/home/deploy/zen_music'
+set :deploy_to, '/var/www/zen_music'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -34,3 +34,18 @@ set :default_env, { rails_env: ENV["RAILS_ENV"] }
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
+
+namespace :deploy do
+  desc "Invoke rake task on the server"
+  task :invoke do
+    fail "no task provided" unless ENV["TASK"]
+
+    on roles(:app) do
+      within release_path do
+        with rails_env: ENV["RAILS_ENV"] do
+          execute :rake, ENV["TASK"]
+        end
+      end
+    end
+  end
+end
