@@ -7,12 +7,12 @@ class Setting < RailsSettings::Base
     def save_values options = {}
       type_cast options
       options.each do |key, value|
-        Setting.send "#{key.to_sym}=", value
+        Setting.send "#{key}=", value
       end
     end
 
     def type_cast options = {}
-      %i(
+      %w(
         top_audio_quantity
         price
         admin_per_page

@@ -7,7 +7,7 @@
     </li>
     <% activities.each do |activity| %>
       <li>
-        <% if activity.is_like? %>
+        <% if activity.name == "like" %>
           <i class="fa fa-thumbs-up bg-blue"></i>
         <% else %>
           <i class="fa fa-headphones bg-yellow"></i>
@@ -18,9 +18,9 @@
           <h3 class="timeline-header"><%= link_to activity.user.email, admin_user_path(activity.user) %></h3>
 
           <div class="timeline-body">
-            <% if activity.is_like? %>
+            <% if activity.name == "like" %>
               likes
-            <% elsif activity.is_listen? %>
+            <% elsif activity.name == "listen" %>
               listened to
             <% end %>
             <%= link_to activity.subject.audio.name, admin_audio_path(activity.subject) %>

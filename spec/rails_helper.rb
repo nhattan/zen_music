@@ -20,7 +20,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -60,6 +60,7 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include TransactionHelper, type: :mailer
   config.include ActionView::Helpers::NumberHelper
+  config.extend ControllerMacros, type: :controller
 end
 
 def json_response
@@ -67,13 +68,8 @@ def json_response
 end
 
 def authentication_header user
-  if DeviseTokenAuth.change_headers_on_each_request
-    @client_id = SecureRandom.urlsafe_base64(nil, false)
-    @access_token = user.create_new_auth_token(@client_id)["access-token"]
-  else
-    @client_id ||= SecureRandom.urlsafe_base64(nil, false)
-    @access_token ||= user.create_new_auth_token(@client_id)["access-token"]
-  end
+  @client_id ||= SecureRandom.urlsafe_base64(nil, false)
+  @access_token ||= user.create_new_auth_token(@client_id)["access-token"]
 
   {
     "CONTENT_TYPE" => "application/json",

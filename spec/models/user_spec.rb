@@ -41,4 +41,10 @@ RSpec.describe User, :type => :model do
       end
     end
   end
+
+  describe "#send_confirmation_email" do
+    it "sends an email" do
+      expect{ FactoryGirl.create(:user) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
 end

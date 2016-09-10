@@ -11,7 +11,10 @@ RSpec.describe Transaction, :type => :model do
     before do
       @current_time = Time.current
     end
-    context "plan_expires_in is nil" do
+    context "user plan_expires_in is nil" do
+      before do
+        user.update plan_expires_in: nil
+      end
       it "adds correctly number of days to plan_expires_in" do
         allow(Time).to receive(:current).and_return(@current_time)
         transaction = FactoryGirl.create(:transaction, user: user)
@@ -19,7 +22,7 @@ RSpec.describe Transaction, :type => :model do
       end
     end
 
-    context "plan_expires_in is present" do
+    context "user plan_expires_in is present" do
       context "plan_expires_in is greater than current time" do
         before do
           user.update plan_expires_in: @current_time + 1.month
@@ -31,7 +34,7 @@ RSpec.describe Transaction, :type => :model do
         end
       end
 
-      context "plan_expires_in is less than current time" do
+      context "user plan_expires_in is less than current time" do
         before do
           user.update plan_expires_in: 2.days.ago
         end
@@ -78,7 +81,8 @@ RSpec.describe Transaction, :type => :model do
 
   describe "#send_invoice!" do
     it "sends an email" do
-      expect{ FactoryGirl.create(:transaction) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+      @user = FactoryGirl.create(:user)
+      expect{ FactoryGirl.create(:transaction, user: @user) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 end

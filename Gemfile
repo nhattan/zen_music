@@ -49,6 +49,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'awesome_print'
   gem 'bullet'
   gem 'faker'
