@@ -6,16 +6,30 @@ RSpec.describe Api::AudiosController, type: :request do
 
   describe "#index" do
     context "valid header" do
-      before do
-        get "/api/v1/audios", authentication_header(user)
+      context "user is not privileged" do
+        before do
+          user.normal_user!
+          get "/api/v1/audios", authentication_header(user)
+        end
+        it { expect(user.privileged?).to be false }
+        it "responds with an HTTP 402 status code" do
+          expect(response).to have_http_status(402)
+        end
       end
-      it "responds successfully with an HTTP 200 status code" do
-        expect(response).to be_success
-        expect(response).to have_http_status(200)
-      end
-      it "responses expected body" do
-        expect(json_response["success"]).to be true
-        expect(json_response["data"]["audios"]).to eq(JSON.parse(Audio.approved.to_json))
+      context "user is privileged" do
+        before do
+          user.update(role: :normal_user, plan_expires_in: DateTime.tomorrow)
+          get "/api/v1/audios", authentication_header(user)
+        end
+        it { expect(user.privileged?).to be true }
+        it "responds successfully with an HTTP 200 status code" do
+          expect(response).to be_success
+          expect(response).to have_http_status(200)
+        end
+        it "responses expected body" do
+          expect(json_response["success"]).to be true
+          expect(json_response["data"]["audios"]).to eq(JSON.parse(Audio.approved.to_json))
+        end
       end
     end
 

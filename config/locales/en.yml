@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  exceptions:
+    auth:
+      user_is_not_privileged:
+        status: 402
+        title: "Not privileged to access content"
+        detail: "User has not paid the subscription fee"

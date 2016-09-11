@@ -47,4 +47,39 @@ RSpec.describe User, :type => :model do
       expect{ FactoryGirl.create(:user) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
     end
   end
+
+  describe "#privileged?" do
+    context "user is normal user" do
+      before do
+        user.normal_user!
+      end
+      context "user plan is expired" do
+        before do
+          allow(user).to receive(:plan_is_expired?) { true }
+        end
+        it { expect(user.privileged?).to be false }
+      end
+
+      context "user plan is not expired" do
+        before do
+          allow(user).to receive(:plan_is_expired?) { false }
+        end
+        it { expect(user.privileged?).to be true }
+      end
+    end
+
+    context "user is special user" do
+      before do
+        user.special_user!
+      end
+      it { expect(user.privileged?).to be true }
+    end
+
+    context "user is admin" do
+      before do
+        user.admin!
+      end
+      it { expect(user.privileged?).to be true }
+    end
+  end
 end

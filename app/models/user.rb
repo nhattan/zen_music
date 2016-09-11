@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     !!plan_expires_in && plan_expires_in <= Time.current
   end
 
+  def privileged?
+    !normal_user? || !plan_is_expired?
+  end
+
   def favorite_audios
     audio_ids = likes.pluck(:audio_id)
     Audio.approved.where(id: audio_ids)

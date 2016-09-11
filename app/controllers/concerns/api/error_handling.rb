@@ -12,7 +12,7 @@ module Api::ErrorHandling
   def handle_exception(error=nil)
     case error
     when Api::Exception
-      render json: error.as_json, status: error.status.to_sym
+      render json: { success: false, errors: [error.message] }, status: error.status
     else
       if error.is_a?(ActiveRecord::RecordNotFound)
         status = 404

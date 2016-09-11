@@ -4,5 +4,6 @@ FactoryGirl.define do
     email { |i| Faker::Internet.email }
     password  "123123123"
     confirmed_at Time.current
+    role :special_user
   end
 end
