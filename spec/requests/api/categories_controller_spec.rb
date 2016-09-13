@@ -29,6 +29,9 @@ RSpec.describe Api::CategoriesController, type: :request do
         it "returns all categories" do
           expect(json_response["data"]["categories"].map{|x| x['id']}).to eq(Category.ids)
         end
+        it "returns children" do
+          expect(json_response["data"]["categories"][0]["children"]).to be_a Array
+        end
       end
 
       context "user is not admin" do
@@ -75,35 +78,35 @@ RSpec.describe Api::CategoriesController, type: :request do
             get "/api/v1/categories/#{category.id}", authentication_header(user)
           end
           it "responds successfully with an HTTP 200 status code" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(response).to be_success
             expect(response).to have_http_status(200)
           end
           it "responses expected body" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(json_response["success"]).to be true
             expect(json_response["data"]["category"]["id"]).to eq category.id
           end
           it "returns audios" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(json_response["data"]["category"]["audios"].map{|x| x['id']}).to eq(category.audios.approved.ids)
           end
         end
 
         context "normal category" do
-          it "responds successfully with an HTTP 200 status code" do
+          before do
             get "/api/v1/categories/#{category.id}", authentication_header(user)
+          end
+          it "responds successfully with an HTTP 200 status code" do
             expect(response).to be_success
             expect(response).to have_http_status(200)
           end
           it "responses expected body" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(json_response["success"]).to be true
             expect(json_response["data"]["category"]["id"]).to eq category.id
           end
           it "returns audios" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(json_response["data"]["category"]["audios"].map{|x| x['id']}).to eq(category.audios.approved.ids)
+          end
+          it "returns children" do
+            expect(json_response["data"]["category"]["children"]).to eq(category.children.as_json)
           end
         end
       end
@@ -124,19 +127,22 @@ RSpec.describe Api::CategoriesController, type: :request do
         end
 
         context "normal category" do
-          it "responds successfully with an HTTP 200 status code" do
+          before do
             get "/api/v1/categories/#{category.id}", authentication_header(user)
+          end
+          it "responds successfully with an HTTP 200 status code" do
             expect(response).to be_success
             expect(response).to have_http_status(200)
           end
           it "responses expected body" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(json_response["success"]).to be true
             expect(json_response["data"]["category"]["id"]).to eq category.id
           end
           it "returns audios" do
-            get "/api/v1/categories/#{category.id}", authentication_header(user)
             expect(json_response["data"]["category"]["audios"].map{|x| x['id']}).to eq(category.audios.approved.ids)
+          end
+          it "returns children" do
+            expect(json_response["data"]["category"]["children"]).to eq(category.children.as_json)
           end
         end
       end

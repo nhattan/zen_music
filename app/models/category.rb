@@ -24,4 +24,19 @@ class Category < ActiveRecord::Base
       smaller: { url: thumbnail.url(:smaller) }
     }
   end
+
+  def as_json(options = nil)
+    {
+      id: id,
+      name: name,
+      description: description,
+      limited_access: limited_access,
+      created_at: created_at,
+      updated_at: updated_at,
+      parent_id: parent_id,
+      thumbnails: thumbnails,
+      audios: approved_audios,
+      children: children
+    }
+  end
 end
