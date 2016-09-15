@@ -26,8 +26,8 @@ RSpec.describe Api::CategoriesController, type: :request do
         it "returns audios" do
           expect(json_response["data"]["categories"][0]["audios"].map{|x| x['id']}).to eq(category.audios.approved.ids)
         end
-        it "returns all categories" do
-          expect(json_response["data"]["categories"].map{|x| x['id']}).to eq(Category.ids)
+        it "returns root categories" do
+          expect(json_response["data"]["categories"].map{|x| x['id']}).to eq(Category.roots.ids)
         end
         it "returns children" do
           expect(json_response["data"]["categories"][0]["children"]).to be_a Array
@@ -49,8 +49,8 @@ RSpec.describe Api::CategoriesController, type: :request do
         it "returns audios" do
           expect(json_response["data"]["categories"][0]["audios"].map{|x| x['id']}).to eq(category.audios.approved.ids)
         end
-        it "returns normal categories" do
-          expect(json_response["data"]["categories"].map{|x| x['id']}).to eq(Category.normal.ids)
+        it "returns root normal categories" do
+          expect(json_response["data"]["categories"].map{|x| x['id']}).to eq(Category.roots.normal.ids)
         end
       end
     end

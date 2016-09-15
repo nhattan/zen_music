@@ -1,9 +1,9 @@
 class Api::CategoriesController < Api::ApplicationController
   def index
     if current_user.admin?
-      @categories = Category.all
+      @categories = Category.roots
     else
-      @categories = Category.normal
+      @categories = Category.roots.normal
     end
   end
 
