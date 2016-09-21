@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902140816) do
+ActiveRecord::Schema.define(version: 20160921143436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,14 @@ ActiveRecord::Schema.define(version: 20160902140816) do
 
   add_index "listens", ["audio_id"], name: "index_listens_on_audio_id", using: :btree
   add_index "listens", ["user_id"], name: "index_listens_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.string   "body"
+    t.integer  "audio_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",                   null: false

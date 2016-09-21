@@ -1,0 +1,37 @@
+<%= content_for :title, "Messages" %>
+
+<%= link_to "Add a new message", new_admin_message_path, class: "btn btn-success" %>
+
+<div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title"></h3>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Body</th>
+          <th>Audio</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @messages.each do |message| %>
+          <tr>
+            <td><%= link_to message.id, admin_message_path(message) %></td>
+            <td><%= message.title %></td>
+            <td><%= message.body %></td>
+            <td><%= link_to message.audio.name, admin_audio_path(message.audio) if message.audio %></td>
+            <td>
+              <%= link_to 'Show', admin_message_path(message), class: 'btn btn-default btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= paginate @messages %>
