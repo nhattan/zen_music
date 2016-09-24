@@ -19,6 +19,19 @@
               <%= f.file_field :thumbnail, class: "form-control", accept: "image/*" %>
               <%= f.hidden_field :thumbnail_cache %>
             </div>
+            <div class="form-group">
+              <%= f.label :parent_id %>
+              <select class="form-control" name="category[parent_id]" id="dropdown">
+                <option></option>
+                <% Category.walk_tree do |category, level| %>
+                  <% if category.id == @category.parent_id || category.id.to_s == params[:category_id] %>
+                    <option selected="selected" value="<%= category.id %>"><%= "#{'-'*level} #{category.path_name}" %></option>
+                  <% else %>
+                    <option value="<%= category.id %>"><%= "#{'-'*level} #{category.path_name}" %></option>
+                  <% end %>
+                <% end %>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -30,19 +43,6 @@
           <div class="form-group">
             <%= f.label :limited_access %>
             <%= f.check_box :limited_access %>
-          </div>
-          <div class="form-group">
-            <%= f.label :parent_id %>
-            <select class="form-control" name="category[parent_id]" id="dropdown">
-              <option></option>
-              <% Category.walk_tree do |category, level| %>
-                <% if category.id == @category.parent_id || category.id.to_s == params[:category_id] %>
-                  <option selected="selected" value="<%= category.id %>"><%= "#{'-'*level}#{category.name}" %></option>
-                <% else %>
-                  <option value="<%= category.id %>"><%= "#{'-'*level}#{category.name}" %></option>
-                <% end %>
-              <% end %>
-            </select>
           </div>
           <div class="form-group">
             <%= f.submit class: "btn btn-success btn-block" %>
