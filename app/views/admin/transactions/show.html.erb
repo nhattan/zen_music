@@ -17,7 +17,11 @@
       <tr>
         <td><b>User</b></td>
         <td>
+        <% if @transaction.user %>
           <%= link_to @transaction.user.email, admin_user_path(@transaction.user) %>
+        <% else %>
+          A deleted user
+        <% end %>
         </td>
       </tr>
       <tr>

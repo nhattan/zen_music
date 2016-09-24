@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902140816) do
+ActiveRecord::Schema.define(version: 20160924084938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,14 @@ ActiveRecord::Schema.define(version: 20160902140816) do
   add_index "listens", ["audio_id"], name: "index_listens_on_audio_id", using: :btree
   add_index "listens", ["user_id"], name: "index_listens_on_user_id", using: :btree
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.string   "body"
+    t.integer  "audio_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",                   null: false
     t.text     "value"
@@ -148,8 +156,10 @@ ActiveRecord::Schema.define(version: 20160902140816) do
     t.string   "phone"
     t.integer  "role",                   default: 0
     t.datetime "plan_expires_in"
+    t.datetime "deleted_at"
   end
 
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree

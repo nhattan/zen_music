@@ -21,7 +21,13 @@
         <% @transactions.each do |transaction| %>
           <tr>
             <td><%= link_to transaction.id, admin_transaction_path(transaction) %></td>
-            <td><%= link_to transaction.user.email, admin_user_path(transaction.user) %></td>
+            <td>
+              <% if transaction.user %>
+                <%= link_to transaction.user.email, admin_user_path(transaction.user) %>
+              <% else %>
+                A deleted user
+              <% end %>
+            </td>
             <td><%= transaction.amount %></td>
             <td><%= transaction.created_at %></td>
             <td>
