@@ -1,0 +1,35 @@
+<%= form_for [:admin, @message] do |f| %>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="box box-solid">
+        <div class="box-header">
+          <div class="box-body pad">
+            <%= render "admin/shared/form_error", record: @message %>
+            <div class="form-group">
+              <%= f.label :title %>
+              <%= f.text_field :title, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <%= f.label :body %>
+              <%= f.text_area :body, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :audio_id %>
+              <%= f.collection_select :audio_id, Audio.all, :id, :name, {}, class: "form-control", id: "dropdown", required: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box box-solid">
+        <div class="box-header"></div>
+        <div class="box-body">
+          <div class="form-group">
+            <%= f.submit class: "btn btn-success btn-block", :data => { :confirm => 'Are you sure? Message will be sending to all users?' } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
