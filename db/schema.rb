@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924084938) do
+ActiveRecord::Schema.define(version: 20160924091504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 20160924084938) do
     t.string   "description"
     t.integer  "listens_count", default: 0
     t.integer  "likes_count",   default: 0
+    t.datetime "deleted_at"
   end
 
   add_index "audios", ["category_id"], name: "index_audios_on_category_id", using: :btree
+  add_index "audios", ["deleted_at"], name: "index_audios_on_deleted_at", using: :btree
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"

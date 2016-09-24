@@ -29,7 +29,11 @@
             <% elsif activity.name == "listen" %>
               listened to
             <% end %>
-            <%= link_to activity.subject.audio.name, admin_audio_path(activity.subject) %>
+            <% if activity.subject.audio %>
+              <%= link_to activity.subject.audio.name, admin_audio_path(activity.subject.audio) %>
+            <% else %>
+              A deleted song
+            <% end %>
           </div>
 
           <div class="timeline-footer">

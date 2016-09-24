@@ -1,4 +1,5 @@
 class Audio < ActiveRecord::Base
+  acts_as_paranoid
   mount_uploader :uploaded_file, AudioUploader
   include CustomThumbnailJson
 
