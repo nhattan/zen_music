@@ -44,6 +44,7 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'audited-activerecord'
 gem 'acts_as_tree'
 gem 'select2-rails'
+gem 'cancancan'
 
 group :development, :test do
   gem 'rspec-rails'

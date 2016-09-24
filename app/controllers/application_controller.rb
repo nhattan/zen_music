@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || resource.admin? ? admin_root_path : root_path
+    stored_location_for(resource) || (resource.admin? || resource.agent?) ? admin_root_path : root_path
   end
 
   protected

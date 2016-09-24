@@ -48,7 +48,7 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  describe "#privileged?" do
+  describe "#eligible?" do
     context "user is normal user" do
       before do
         user.normal_user!
@@ -57,14 +57,14 @@ RSpec.describe User, :type => :model do
         before do
           allow(user).to receive(:plan_is_expired?) { true }
         end
-        it { expect(user.privileged?).to be false }
+        it { expect(user.eligible?).to be false }
       end
 
       context "user plan is not expired" do
         before do
           allow(user).to receive(:plan_is_expired?) { false }
         end
-        it { expect(user.privileged?).to be true }
+        it { expect(user.eligible?).to be true }
       end
     end
 
@@ -72,14 +72,14 @@ RSpec.describe User, :type => :model do
       before do
         user.special_user!
       end
-      it { expect(user.privileged?).to be true }
+      it { expect(user.eligible?).to be true }
     end
 
     context "user is admin" do
       before do
         user.admin!
       end
-      it { expect(user.privileged?).to be true }
+      it { expect(user.eligible?).to be true }
     end
   end
 end
