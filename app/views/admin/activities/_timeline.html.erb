@@ -15,7 +15,13 @@
         <div class="timeline-item">
           <span class="time"><i class="fa fa-clock-o"></i><%= activity.created_at.strftime("%H:%M") %></span>
 
-          <h3 class="timeline-header"><%= link_to activity.user.email, admin_user_path(activity.user) %></h3>
+          <h3 class="timeline-header">
+            <% if activity.user %>
+              <%= link_to activity.user.email, admin_user_path(activity.user) %>
+            <% else %>
+              A deleted user
+            <% end %>
+          </h3>
 
           <div class="timeline-body">
             <% if activity.name == "like" %>

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_paranoid
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable,
           :confirmable
@@ -12,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :activities
 
-  enum role: [:normal_user, :special_user, :admin]
+  enum role: [:normal_user, :special_user, :admin, :agent]
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
@@ -20,8 +21,8 @@ class User < ActiveRecord::Base
     !!plan_expires_in && plan_expires_in <= Time.current
   end
 
-  def privileged?
-    !normal_user? || !plan_is_expired?
+  def eligible?
+    (!agent? && !normal_user?) || !plan_is_expired?
   end
 
   def favorite_audios
