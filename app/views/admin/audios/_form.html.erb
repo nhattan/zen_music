@@ -30,6 +30,19 @@
               <%= f.hidden_field :uploaded_file_cache %>
             </div>
           </div>
+          <div class="form-group">
+            <%= f.label :category_id %>
+            <select class="form-control" name="audio[category_id]" id="dropdown">
+              <option></option>
+              <% Category.walk_tree do |category, level| %>
+                <% if category.id == @audio.category_id || category.id.to_s == params[:category_id] %>
+                  <option selected="selected" value="<%= category.id %>"><%= "#{'-'*level}#{category.path_name}" %></option>
+                <% else %>
+                  <option value="<%= category.id %>"><%= "#{'-'*level} #{category.path_name}" %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -37,10 +50,6 @@
       <div class="box box-solid">
         <div class="box-header"></div>
         <div class="box-body">
-          <div class="form-group">
-            <%= f.label :category_id %>
-            <%= f.collection_select :category_id, Category.all, :id, :name, {selected: @audio.category_id || params[:category_id]}, class: "form-control", id: "dropdown" %>
-          </div>
           <% if @audio.persisted? %>
             <div class="form-group">
               <%= f.label :status %>

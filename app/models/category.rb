@@ -12,6 +12,20 @@ class Category < ActiveRecord::Base
   scope :limited_access, -> { where(limited_access: true) }
   scope :normal, -> { where(limited_access: false) }
 
+  def path_name
+    if root?
+      name
+    else
+      category = self
+      names = [name]
+      while category.parent do
+        names << category.parent.name
+        category = category.parent
+      end
+      names.reverse.join(" . ")
+    end
+  end
+
   def approved_audios
     audios.approved
   end
