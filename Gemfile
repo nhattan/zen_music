@@ -45,6 +45,7 @@ gem 'audited-activerecord'
 gem 'acts_as_tree'
 gem 'select2-rails'
 gem 'cancancan'
+gem 'where-or'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -55,4 +55,11 @@ RSpec.describe Audio, :type => :model do
 
     it { expect(user_1.favorite_audios.ids).to eq([audio_1, audio_2, audio_3, audio_4].map(&:id))}
   end
+
+  describe "#activities" do
+    let!(:like) { FactoryGirl.create(:like, audio: audio_1, user: user_1) }
+    let!(:listen) { FactoryGirl.create(:listen, audio: audio_1, user: user_1) }
+
+    it { expect(audio_1.activities).to eq user_1.activities }
+  end
 end

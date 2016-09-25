@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   before_create :set_plan_expires_in
   after_create :send_confirmation_email, if: -> { User.devise_modules.include?(:confirmable) }
+  after_destroy :destroy_activities
 
   has_many :listens
   has_many :likes
@@ -46,5 +47,9 @@ class User < ActiveRecord::Base
 
   def set_plan_expires_in
     self.plan_expires_in = Time.current
+  end
+
+  def destroy_activities
+    activities.destroy_all
   end
 end

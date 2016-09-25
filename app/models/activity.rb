@@ -1,10 +1,14 @@
 class Activity < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :subject, polymorphic: true
   belongs_to :user
 
-  scope :without_unliked, -> do
-    unliked_ids = Like.only_deleted.ids
-    ids = where(subject_type: 'Like', subject_id: unliked_ids).ids
-    where.not(id: ids)
+  scope :likes, -> do
+    where(subject_type: 'Like')
+  end
+
+  scope :listens, -> do
+    where(subject_type: 'Listen')
   end
 end
