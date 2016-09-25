@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924091504) do
+ActiveRecord::Schema.define(version: 20160925080059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 20160924091504) do
     t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "deleted_at"
   end
 
+  add_index "activities", ["deleted_at"], name: "index_activities_on_deleted_at", using: :btree
   add_index "activities", ["subject_id"], name: "index_activities_on_subject_id", using: :btree
   add_index "activities", ["subject_type"], name: "index_activities_on_subject_type", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
@@ -99,9 +101,11 @@ ActiveRecord::Schema.define(version: 20160924091504) do
     t.integer  "audio_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   add_index "listens", ["audio_id"], name: "index_listens_on_audio_id", using: :btree
+  add_index "listens", ["deleted_at"], name: "index_listens_on_deleted_at", using: :btree
   add_index "listens", ["user_id"], name: "index_listens_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
