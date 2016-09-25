@@ -12,6 +12,7 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
+          <th>Audios</th>
           <th>Limited access</th>
           <th></th>
         </tr>
@@ -27,11 +28,11 @@
               <% end %>
             </td>
             <td><%= category.description %></td>
+            <td><%= category.audios.count %></td>
             <td><%= category.limited_access %></td>
             <td>
               <%= link_to 'Show', admin_category_path(category), class: 'btn btn-default btn-sm' %>
               <%= link_to 'Edit', edit_admin_category_path(category), class: 'btn btn-primary btn-sm' %>
-              <%= link_to 'Delete', admin_category_path(category), class: 'btn btn-danger btn-sm', :method => :delete, :data => { :confirm => 'Are you sure?' } %>
             </td>
           </tr>
         <% end %>
