@@ -40,6 +40,16 @@ class User < ActiveRecord::Base
     save!
   end
 
+  def eligible_to_access_data
+    eligible?
+  end
+
+  def as_json(options = nil)
+    options ||= {}
+    options.merge!(methods: [:eligible_to_access_data])
+    super options
+  end
+
   private
   def send_confirmation_email
     send_confirmation_instructions

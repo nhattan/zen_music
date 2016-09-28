@@ -1,6 +1,6 @@
 class Api::UsersController < Api::ApplicationController
 
-  def show
-    @user = User.confirmed.find params[:id]
+  def profile
+    @user = current_user
   end
 end

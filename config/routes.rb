@@ -16,7 +16,11 @@ Rails.application.routes.draw do
       end
       resources :likes, only: [:create]
       delete "likes", to: "likes#destroy"
-      resources :users, only: [:show]
+      resources :users, only: [] do
+        collection do
+          get :profile
+        end
+      end
     end
   end
 
