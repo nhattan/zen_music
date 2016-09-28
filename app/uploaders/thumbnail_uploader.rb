@@ -17,16 +17,7 @@ class ThumbnailUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*args)
-    case version_name
-    when :medium
-      "https://placehold.it/414x114"
-    when :small
-      "https://placehold.it/375x114"
-    when :smaller
-      "https://placehold.it/320x114"
-    else
-      "https://placehold.it/414x114"
-    end
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "audio.png"].compact.join('_'))
   end
 
   # Process files as they are uploaded:
@@ -38,15 +29,15 @@ class ThumbnailUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :medium do
-    process resize_to_fill: [414, 114]
+    process resize_to_fill: [414, 414]
   end
 
   version :small, from_version: :medium do
-    process resize_to_fill: [375, 114]
+    process resize_to_fill: [375, 375]
   end
 
   version :smaller, from_version: :small do
-    process resize_to_fill: [320, 114]
+    process resize_to_fill: [320, 320]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -33,7 +33,7 @@
             <td>
               <%= link_to 'Show', admin_category_path(category), class: 'btn btn-default btn-sm' %>
               <%= link_to 'Edit', edit_admin_category_path(category), class: 'btn btn-primary btn-sm' %>
-              <%= link_to 'Delete', admin_category_path(category), class: 'btn btn-danger btn-sm', :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+              <%= link_to 'Delete', admin_category_path(category), class: 'btn btn-danger btn-sm', :method => :delete, :data => { :confirm => 'Are you sure? All sub categories and audios inside this category will be deleted, too!' } %>
             </td>
           </tr>
         <% end %>
