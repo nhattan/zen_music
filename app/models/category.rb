@@ -4,10 +4,11 @@ class Category < ActiveRecord::Base
   extend ActsAsTree::TreeView
 
   acts_as_tree order: "name"
+  acts_as_paranoid
 
   validates :name, presence: true, uniqueness: true
 
-  has_many :audios
+  has_many :audios, dependent: :destroy
 
   scope :limited_access, -> { where(limited_access: true) }
   scope :normal, -> { where(limited_access: false) }
