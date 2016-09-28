@@ -8,6 +8,5 @@ class Ability
     elsif user.agent?
       can :manage, Transaction
     end
-    can :read, :all
   end
 end
