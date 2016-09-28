@@ -10,7 +10,7 @@ class Audio < ActiveRecord::Base
 
   delegate :thumbnail, to: :category
 
-  validates :name, presence: true
+  validates_presence_of :name, :description, :category_id, :uploaded_file
 
   enum status: [:draft, :approved]
 

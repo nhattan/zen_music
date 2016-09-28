@@ -18,7 +18,20 @@
           <% end %>
           <div class="form-group">
             <%= f.label :description %>
-            <%= f.text_field :description, class: "form-control" %>
+            <%= f.text_field :description, class: "form-control", required: true %>
+          </div>
+          <div class="form-group">
+            <%= f.label :category_id %>
+            <select class="form-control" name="audio[category_id]" id="dropdown" required="true">
+              <option></option>
+              <% Category.walk_tree do |category, level| %>
+                <% if category.id == @audio.category_id || category.id.to_s == params[:category_id] %>
+                  <option selected="selected" value="<%= category.id %>"><%= "#{'-'*level}#{category.path_name}" %></option>
+                <% else %>
+                  <option value="<%= category.id %>"><%= "#{'-'*level} #{category.path_name}" %></option>
+                <% end %>
+              <% end %>
+            </select>
           </div>
           <div class="form-group">
             <%= f.label :uploaded_file, "Upload" %>
@@ -29,19 +42,6 @@
               <%= f.file_field :uploaded_file, accept: "audio/*" %>
               <%= f.hidden_field :uploaded_file_cache %>
             </div>
-          </div>
-          <div class="form-group">
-            <%= f.label :category_id %>
-            <select class="form-control" name="audio[category_id]" id="dropdown">
-              <option></option>
-              <% Category.walk_tree do |category, level| %>
-                <% if category.id == @audio.category_id || category.id.to_s == params[:category_id] %>
-                  <option selected="selected" value="<%= category.id %>"><%= "#{'-'*level}#{category.path_name}" %></option>
-                <% else %>
-                  <option value="<%= category.id %>"><%= "#{'-'*level} #{category.path_name}" %></option>
-                <% end %>
-              <% end %>
-            </select>
           </div>
         </div>
       </div>
