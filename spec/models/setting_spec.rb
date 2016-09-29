@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Setting, :type => :model do
   let(:options) {
     {
-      "app_name" => "Brain Spa",
+      "app_name" => "Mid Brain Master",
       "top_audio_quantity" => "10",
       "price" => "200000",
       "admin_per_page" => nil,
@@ -15,7 +15,7 @@ RSpec.describe Setting, :type => :model do
       Setting.save_values options
     end
     it "casts app_name as string" do
-      expect(Setting.app_name).to eq("Brain Spa")
+      expect(Setting.app_name).to eq("Mid Brain Master")
     end
     it "casts top_audio_quantity as integer" do
       expect(Setting.top_audio_quantity).to eq(10)

@@ -4,6 +4,6 @@ class TransactionMailer < ApplicationMailer
   def invoice_email(transaction)
     @user = transaction.user
     @transaction = transaction
-    mail(to: @user.email, subject: 'Your invoice from Brain Spa')
+    mail(to: @user.email, subject: 'Your invoice from Mid Brain Master')
   end
 end
