@@ -22,6 +22,19 @@ class Audio < ActiveRecord::Base
     Activity.listens.where(subject_id: listen_ids).or(Activity.likes.where(subject_id: like_ids))
   end
 
+  def uploaded_file_extension
+    uploaded_file.file.extension.downcase if uploaded_file && uploaded_file.file
+  end
+
+  def uploaded_file_url
+    case uploaded_file_extension
+    when 'mp3'
+      "#{ENV['AWS_CLOUDFRONT_URL_STREAMING']}/cfx/st/mp3:#{uploaded_file.path[0..-5]}"
+    when 'm4a'
+      "#{ENV['AWS_CLOUDFRONT_URL_STREAMING']}/cfx/st/mp4:#{uploaded_file.path}"
+    end
+  end
+
   private
 
   def destroy_activities
