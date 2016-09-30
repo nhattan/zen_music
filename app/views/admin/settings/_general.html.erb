@@ -2,6 +2,10 @@
   <%= form_tag url: admin_settings_url, method: :post do %>
     <div class="box-body pad">
       <div class="form-group">
+        <%= label_tag :app_name %>
+        <%= text_field_tag :app_name, Setting.app_name, class: "form-control", placeholder: "MindMaster" %>
+      </div>
+      <div class="form-group">
         <%= label_tag :top_audio_quantity %>
         <%= number_field_tag :top_audio_quantity, Setting.top_audio_quantity, class: "form-control", placeholder: "10" %>
       </div>

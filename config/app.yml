@@ -1,5 +1,6 @@
 # config/app.yml for rails-settings-cached
 defaults: &defaults
+  app_name: MindMaster
   top_audio_quantity: 10
   price: 200000
   admin_per_page: 20

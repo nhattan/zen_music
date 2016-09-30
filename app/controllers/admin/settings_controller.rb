@@ -14,6 +14,6 @@ class Admin::SettingsController < Admin::ApplicationController
 
   private
   def setting_params
-    params.permit(:top_audio_quantity, :price, :admin_per_page)
+    params.permit(:top_audio_quantity, :price, :admin_per_page, :app_name)
   end
 end

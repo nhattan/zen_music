@@ -7,7 +7,7 @@ RSpec.describe TransactionMailer, :type => :mailer do
     let(:mail) { TransactionMailer.invoice_email(transaction) }
 
     it "has appropriate subject" do
-      expect(mail.subject).to eq("Your invoice from Mid Brain Master")
+      expect(mail.subject).to eq("Your invoice from <%= Setting.app_name %>")
     end
 
     it "sends from the default email" do
