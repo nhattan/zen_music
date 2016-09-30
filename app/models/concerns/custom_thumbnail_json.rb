@@ -12,7 +12,7 @@ module CustomThumbnailJson
 
   def as_json(options = nil)
     options ||= {}
-    options.merge!(except: :thumbnail, methods: [:thumbnails])
+    options.merge!(except: [:thumbnail, :uploaded_file], methods: [:uploaded_file_url, :thumbnails])
     super options
   end
 end

@@ -17,17 +17,15 @@
         </td>
       </tr>
       <tr>
-        <td><b>Uploaded file</b></td>
+        <td><b>Audio</b></td>
         <td>
-          <%= audio_tag(@audio.uploaded_file_url, controls: true) if @audio.uploaded_file? %>
+          <%= render "player" %>
         </td>
       </tr>
-      <tr>
-        <td><b>Uploaded file URL</b></td>
-        <td>
-          <%= link_to @audio.uploaded_file_url, @audio.uploaded_file_url if @audio.uploaded_file? %>
-        </td>
-      </tr>
+      <% if @audio.uploaded_file? %>
+        <div id='uploaded_file_url' data-file-url="<%= @audio.uploaded_file_url %>">
+        </div>
+      <% end %>
       <tr>
         <td><b>Description</b></td>
         <td>

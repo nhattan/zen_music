@@ -19,3 +19,9 @@ jQuery ->
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.progress-bar').css('width', progress + '%')
         data.context.find('#js-completed').html(progress + "%")
+
+  file_url = $('#uploaded_file_url').data('file-url')
+  if file_url
+    jwplayer('my-player').setup
+      file: file_url
+      height: 150

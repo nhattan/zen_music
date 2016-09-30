@@ -11,7 +11,7 @@
           </div>
           <% if @audio.uploaded_file? %>
             <div class="form-group">
-              <%= f.label :uploaded_file_url, "Uploaded file URL" %>
+              <%= f.label :uploaded_file_url, "Audio" %>
               <br>
               <%= link_to @audio.uploaded_file_url, @audio.uploaded_file_url, id: "audio_uploaded_file_url" %>
             </div>
