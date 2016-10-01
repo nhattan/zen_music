@@ -46,6 +46,7 @@ gem 'acts_as_tree'
 gem 'select2-rails'
 gem 'cancancan'
 gem 'where-or'
+gem 'gon'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -20,8 +20,7 @@ jQuery ->
         data.context.find('.progress-bar').css('width', progress + '%')
         data.context.find('#js-completed').html(progress + "%")
 
-  file_url = $('#uploaded_file_url').data('file-url')
-  if file_url
+  if gon.uploaded_file_url
     jwplayer('my-player').setup
-      file: file_url
+      file: gon.uploaded_file_url
       height: 150

@@ -11,6 +11,7 @@ class Admin::AudiosController < Admin::ApplicationController
   end
 
   def show
+    gon.uploaded_file_url = @audio.uploaded_file_url
   end
 
   def new
