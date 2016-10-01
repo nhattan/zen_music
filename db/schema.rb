@@ -80,10 +80,6 @@ ActiveRecord::Schema.define(version: 20160928131230) do
     t.datetime "updated_at",                     null: false
     t.string   "thumbnail"
     t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
-    t.integer  "children_count"
     t.datetime "deleted_at"
   end
 
@@ -113,14 +109,6 @@ ActiveRecord::Schema.define(version: 20160928131230) do
   add_index "listens", ["audio_id"], name: "index_listens_on_audio_id", using: :btree
   add_index "listens", ["deleted_at"], name: "index_listens_on_deleted_at", using: :btree
   add_index "listens", ["user_id"], name: "index_listens_on_user_id", using: :btree
-
-  create_table "messages", force: :cascade do |t|
-    t.string   "title",      null: false
-    t.string   "body"
-    t.integer  "audio_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",                   null: false
