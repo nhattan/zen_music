@@ -59,6 +59,9 @@ class Admin::AudiosController < Admin::ApplicationController
     end
 
     def audio_params
+      params[:audio]['name'] = 'Audio name' if params[:audio]['name'].blank?
+      params[:audio]['description'] = 'Audio description' if params[:audio]['description'].blank?
+      params[:audio]['category_id'] = Category.normal.order(:name).last.id if params[:audio]['category_id'].blank?
       params.require(:audio).permit(:name, :description, :uploaded_file, :uploaded_file_cache, :category_id, :status)
     end
 end

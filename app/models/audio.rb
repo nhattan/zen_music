@@ -26,6 +26,10 @@ class Audio < ActiveRecord::Base
     uploaded_file.file.extension.downcase if uploaded_file && uploaded_file.file
   end
 
+  def uploaded_file_name
+    uploaded_file.file.filename if uploaded_file && uploaded_file.file
+  end
+
   def uploaded_file_url
     case uploaded_file_extension
     when 'mp3'
