@@ -1,0 +1,17 @@
+<div class="box box-solid">
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-3">
+        <%= form_tag admin_transactions_path, method: :get do %>
+          <div class="form-group">
+            <%= label_tag :date_range_filter, "Date filter" %>
+            <%= text_field_tag :date_range_filter, params[:date_range_filter], class: "form-control daterange" %>
+          </div>
+          <div class="form-group">
+            <%= submit_tag "Filter", class: "btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

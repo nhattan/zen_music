@@ -20,5 +20,6 @@
 //= require moment
 //= require moment/vi
 //= require bootstrap-datetimepicker
+//= require daterangepicker
 //= require select2
 //= require_tree .
