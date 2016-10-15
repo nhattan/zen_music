@@ -10,8 +10,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Description</th>
+          <th style="width:40%;">Name</th>
           <th>Audios</th>
           <th>Limited access</th>
           <th></th>
@@ -27,7 +26,6 @@
                 <%= category.name %>
               <% end %>
             </td>
-            <td><%= category.description %></td>
             <td><%= category.audios.count %></td>
             <td><%= category.limited_access %></td>
             <td>
